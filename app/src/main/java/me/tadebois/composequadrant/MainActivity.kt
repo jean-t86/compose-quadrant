@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -32,14 +33,52 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Quadrant(
-                        title = stringResource(R.string.text_composable_title),
-                        body = stringResource(R.string.text_composable_body),
-                        colorResource(id = R.color.quadrant_one)
-                    )
+                    QuadrantScreen()
                 }
             }
         }
+    }
+}
+
+@Composable
+fun QuadrantScreen(modifier: Modifier = Modifier) {
+    Row(modifier) {
+        Column(verticalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.weight(1F)) {
+            Quadrant(
+                title = stringResource(R.string.text_composable_title),
+                body = stringResource(R.string.text_composable_body),
+                colorResource(id = R.color.quadrant_one),
+                modifier = Modifier.weight(1F)
+            )
+            Quadrant(
+                title = stringResource(R.string.row_composable_title),
+                body = stringResource(R.string.row_composable_body),
+                colorResource(id = R.color.quadrant_three),
+                modifier = Modifier.weight(1F)
+            )
+        }
+        Column(verticalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.weight(1F)) {
+            Quadrant(
+                title = stringResource(R.string.image_composable_title),
+                body = stringResource(R.string.image_composable_body),
+                colorResource(id = R.color.quadrant_two),
+                modifier = Modifier.weight(1F)
+            )
+            Quadrant(
+                title = stringResource(R.string.column_composable_title),
+                body = stringResource(R.string.column_composable_body),
+                colorResource(id = R.color.quadrant_four),
+                modifier = Modifier.weight(1F)
+            )
+        }
+    }
+}
+
+@Preview(showSystemUi = true)
+@Composable
+fun QuadrantScreenPreview() {
+    ComposeQuadrantTheme {
+        QuadrantScreen()
     }
 }
 
