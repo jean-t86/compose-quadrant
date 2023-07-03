@@ -3,10 +3,12 @@ package me.tadebois.composequadrant
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -33,7 +35,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    QuadrantScreen()
+                    QuadrantApp()
                 }
             }
         }
@@ -41,34 +43,34 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun QuadrantScreen(modifier: Modifier = Modifier) {
-    Row(modifier) {
-        Column(verticalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.weight(1F)) {
+fun QuadrantApp() {
+    Row(Modifier.fillMaxWidth()) {
+        Column(Modifier.weight(1f)) {
             Quadrant(
                 title = stringResource(R.string.text_composable_title),
                 body = stringResource(R.string.text_composable_body),
                 colorResource(id = R.color.quadrant_one),
-                modifier = Modifier.weight(1F)
+                modifier = Modifier.weight(1f)
             )
             Quadrant(
                 title = stringResource(R.string.row_composable_title),
                 body = stringResource(R.string.row_composable_body),
                 colorResource(id = R.color.quadrant_three),
-                modifier = Modifier.weight(1F)
+                modifier = Modifier.weight(1f)
             )
         }
-        Column(verticalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.weight(1F)) {
+        Column(Modifier.weight(1f)) {
             Quadrant(
                 title = stringResource(R.string.image_composable_title),
                 body = stringResource(R.string.image_composable_body),
                 colorResource(id = R.color.quadrant_two),
-                modifier = Modifier.weight(1F)
+                modifier = Modifier.weight(1f)
             )
             Quadrant(
                 title = stringResource(R.string.column_composable_title),
                 body = stringResource(R.string.column_composable_body),
                 colorResource(id = R.color.quadrant_four),
-                modifier = Modifier.weight(1F)
+                modifier = Modifier.weight(1f)
             )
         }
     }
@@ -76,33 +78,36 @@ fun QuadrantScreen(modifier: Modifier = Modifier) {
 
 @Preview(showSystemUi = true)
 @Composable
-fun QuadrantScreenPreview() {
+fun QuadrantAppPreview() {
     ComposeQuadrantTheme {
-        QuadrantScreen()
+        QuadrantApp()
     }
 }
 
 @Composable
-fun Quadrant(title: String, body: String, color: Color, modifier: Modifier = Modifier) {
-    Surface(
-        color = color,
+fun Quadrant(
+    title: String,
+    body: String,
+    color: Color,
+    modifier: Modifier = Modifier
+) {
+    Column(
         modifier = modifier
+            .fillMaxSize()
+            .background(color)
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Text(
-                text = title,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
-            Text(
-                text = body,
-                textAlign = TextAlign.Justify
-            )
-        }
+        Text(
+            text = title,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+        Text(
+            text = body,
+            textAlign = TextAlign.Justify
+        )
     }
 }
 
